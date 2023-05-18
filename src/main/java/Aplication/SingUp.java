@@ -16,7 +16,12 @@ public class SingUp {
     }
 
     public void saveUser(User user){
-
+        List<User>users= userRepository.getUserByEmail(user);
+        boolean userNotExist = users.isEmpty();
+        if(userNotExist){
+            userRepository.saveUser(user);
+            emailRepository.sendEmail(user);
+        }
     }
 
 }
